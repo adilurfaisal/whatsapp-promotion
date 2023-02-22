@@ -1,0 +1,263 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+.nav-background-img {
+    background-image: url('../assets/image/login-background.jpg') !important;
+    background-size: cover !important;
+    background-position: 10% 100% !important;
+    height: 100%;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: absolute;
+}
+
+.nav-background-img .nav-background-img-overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+    height: 100%;
+    width: 100%;
+}
+
+.brand_icon_logo {
+    opacity: 0.8;
+}
+
+.brand_icon_logo {
+    cursor: pointer;
+    transition: all 1s ease-in-out 0s;
+}
+
+.brand_icon_logo:hover {
+    transform: rotate(360deg);
+    transition: all 1s ease-in-out 0s;
+}
+
+
+
+.my-sticky-header-table thead tr th{
+    position: sticky;
+    z-index: 1;
+    background-color: white;
+}
+
+.my-sticky-header-table thead tr:last-child th{
+    top: 48px;
+}
+
+.my-sticky-header-table thead tr:first-child th{
+    top: 0;
+}
+
+/*===================================
+        Color Registration
+=====================================*/
+.text-sc-1{
+    color: #000000 !important;
+}
+.bg-sc-1{
+    background-color: #64b5f6;
+}
+
+.text-sc-2{
+    color: #fff !important;
+}
+.bg-sc-2{
+    background-color: #42bcd4;
+}
+
+.bg-sc-back{
+    background-color: #f1f5f8;
+}
+
+
+.bg-go-btn,
+.bg-submit-btn,
+.bg-next-btn{
+    background-color:#1D9671 !important;
+}
+.bg-add-btn{
+    background-color:#81c784 !important;
+}
+.bg-save-btn,
+.bg-toggle-btn{
+    background-color:#0678C4;
+}
+
+
+.bg-back-btn,
+.bg-cancel-btn,
+.bg-delete-btn{
+    background-color: #E87888 !important;
+}
+.bg-title{
+    background-color: #85CBE1 !important;
+}
+.text-title{
+    color:#000;
+}
+
+.bg-table-header{
+    background-color: #34425A !important;
+}
+
+
+
+/*===================================
+        Color Registration
+=====================================*/
+
+
+
+/*===================================
+        Dynamic Color Registration
+=====================================*/
+.text-class-0{
+    color: #673ab7 !important;
+}
+.bg-class-0{
+    background-color: #673ab7 !important;
+}
+.text-class-1{
+    color: #f44336 !important;
+}
+.bg-class-1{
+    background-color: #f44336 !important;
+}
+.text-class-2{
+    color: #e91e63 !important;
+}
+.bg-class-2{
+    background-color: #e91e63 !important;
+}
+.text-class-3{
+    color: #9c27b0 !important;
+}
+.bg-class-3{
+    background-color: #9c27b0 !important;
+}
+.text-class-4{
+    color: #2196f3 !important;
+}
+.bg-class-4{
+    background-color: #2196f3 !important;
+}
+.text-class-5{
+    color: #00bcd4 !important;
+}
+.bg-class-5{
+    background-color: #00bcd4 !important;
+}
+.text-class-6{
+    color: #009688 !important;
+}
+.bg-class-6{
+    background-color: #009688 !important;
+}
+.text-class-7{
+    color: #4a148c !important;
+}
+.bg-class-7{
+    background-color: #4a148c !important;
+}
+.text-class-8{
+    color: #4caf50 !important;
+}
+.bg-class-8{
+    background-color: #4caf50 !important;
+}
+.text-class-9{
+    color: #ffeb3b !important;
+}
+.bg-class-9{
+    background-color: #ffeb3b !important;
+}
+.text-class-10{
+    color: #ff9800 !important;
+}
+.bg-class-10{
+    background-color: #ff9800 !important;
+}
+.text-class-11{
+    color: #ff5722 !important;
+}
+.bg-class-11{
+    background-color: #ff5722 !important;
+}
+.text-class-12{
+    color: #795548 !important;
+}
+.bg-class-12{
+    background-color: #795548 !important;
+}
+.text-class-13{
+    color: #cddc39 !important;
+}
+.bg-class-13{
+    background-color: #cddc39 !important;
+}
+.text-class-14{
+    color: #607d8b !important;
+}
+.bg-class-14{
+    background-color: #607d8b !important;
+}
+.text-class-15{
+    color: #006064 !important;
+}
+.bg-class-15{
+    background-color: #006064 !important;
+}
+.text-class-16{
+    color: #1b5e20 !important;
+}
+.bg-class-16{
+    background-color: #1b5e20 !important;
+}
+.text-class-17{
+    color: #ffc107 !important;
+}
+.bg-class-17{
+    background-color: #ffc107 !important;
+}
+.text-class-18{
+    color: #0d47a1 !important;
+}
+.bg-class-18{
+    background-color: #0d47a1 !important;
+}
+.text-class-19{
+    color: #880e4f !important;
+}
+.bg-class-19{
+    background-color: #880e4f !important;
+}
+
+
+
+/*===================================
+        Dynamic Color Registration
+=====================================*/
+
+
+
+/*===================================
+       font Registration
+=====================================*/
+
+.poppins_font {
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+  }
+
+  .text-sc-16{
+    font-size:16px
+  }
+  .text-sc-18{
+    font-size:18px
+  }
+  .text-sc-20{
+    font-size:20px
+  }
+
+  /*===================================
+       font Registration
+=====================================*/
+

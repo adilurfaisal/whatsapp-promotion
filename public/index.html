@@ -3,28 +3,148 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Hello World!</title>
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Whatsapp</title>
+    <link rel="icon" type="image/png" href="./assets/image/logo_16x16.png" />
+    <link
+        href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons|Material+Icons+Outlined"
+        rel="stylesheet" type="text/css">
+    <!--
+        <link href="css/quasar.prod.css" rel="stylesheet" type="text/css">
+        -->
+    <link href="https://cdn.jsdelivr.net/npm/quasar@2.10.2/dist/quasar.prod.css" rel="stylesheet" type="text/css">
+    <link href="./css/style.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
-    <div class="row">
-        <div class="col-4">
-            <div>
-                <form id="search-form">
-                    <label for="search_for">Search</label>
-                    <input type="text" id="search_for" name="search_for" placeholder="Search for...">
-                    <input type="submit" value="Submit">
 
-                    <div id="responses">
+    <!-- Add the following at the end of your body tag 
+    <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/vue-router@4"></script>
+    /* <script src="https://unpkg.com/http-vue-loader"></script> */
+    <script src="https://cdn.jsdelivr.net/npm/vue3-sfc-loader"></script>
+    <script src="./js/quasar.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/socket.io-client/dist/socket.io.slim.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-socket.io-extended"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    -->
 
+    <!-- Add the following at the end of your body tag 
+    -->
+    <script src="js/vue.global.prod.js"></script>
+    <script src="js/vue-router.global.js"></script>
+    <script src="js/quasar.umd.prod.js"></script>
+    <script src="js/vue3-sfc-loader.js"></script>
+    <script src="js/axios.min.js"></script>
+
+
+    <script src="./js/vue3-sfc-loader.config.js"></script>
+
+    <div id="main-vue">
+        <q-layout class="bg-white inset-shadow-down" view="lHh LpR lfr">
+
+            <q-header reveal reveal-offset="50">
+
+
+                <q-bar style="min-width: 250px;" class="rounded-borders">
+                    <div class="row full-height full-width titlebar align-center">
+                        <span class="q-pt-xs">Whatsapp Promotion</span>
                     </div>
-                </form>
-            </div>
-        </div>
+                    <q-space></q-space>
+                    <q-btn dense flat icon="minimize" @click="minimizeWin()"></q-btn>
+                    <q-btn dense flat icon="close" @click="closeApp()"></q-btn>
+                </q-bar>
+
+            </q-header>
+
+
+            <!-- Drawer-left End -->
+
+            <q-page-container>
+                <div class="row">
+                    <div class="col-12 row justify-center">
+                        <q-btn class="q-ma-md" color="primary" icon="dashboard" label="Dashboard"
+                            :to="{name: 'dashboard' }"></q-btn>
+                        <q-btn class="q-ma-md" color="primary" icon="contacts" label="Contacts"
+                            :to="{name: 'contacts' }"></q-btn>
+                        <q-btn class="q-ma-md" color="primary" icon="cloud_sync" label="Whatsapp"
+                            :to="{name: 'whatsapp-login' }"></q-btn>
+                        <q-btn class="q-ma-md" color="primary" icon="sms" label="Send"
+                            :to="{name: 'send-msg' }"></q-btn>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <router-view></router-view>
+                    </div>
+                </div>
+            </q-page-container>
+
+        </q-layout>
     </div>
-    <script src="script.js"></script>
+
+
+    <script>
+        let { ipcRenderer } = require("electron")
+        const QRCode = require('qrcode');
+        const { date, useQuasar, setCssVar, getCssVar } = Quasar;
+
+        const router = VueRouter.createRouter({
+            history: VueRouter.createWebHashHistory(),
+            routes: [],
+        })
+
+        const app = Vue.createApp({
+            name: 'HomePage',
+            data() {
+                return {
+                    current_pwd: '',
+                    leftDrawerOpen: true,
+                }
+            },
+            watch: {
+                $route: function () {
+                    this.current_pwd = window.location.hash.split("#/")[1];
+                }
+            },
+            created() {
+                router.addRoute({ path: `/:catchAll(.*)`, name: `error`, props: { ipcRenderer: ipcRenderer }, component: () => loadModule("./templete/error.vue", options) });
+                router.addRoute({ path: `/`, name: `dashboard`, props: { ipcRenderer: ipcRenderer }, component: () => loadModule("./templete/dashboard.vue", options) });
+                router.addRoute({ path: `/contacts`, name: `contacts`, props: { ipcRenderer: ipcRenderer }, component: () => loadModule("./templete/contacts.vue", options) });
+                router.addRoute({ path: `/whatsapp-login`, name: `whatsapp-login`, props: { ipcRenderer: ipcRenderer }, component: () => loadModule("./templete/whatsapp-login.vue", options) });
+                router.addRoute({ path: `/send-msg`, name: `send-msg`, props: { ipcRenderer: ipcRenderer }, component: () => loadModule("./templete/send-msg.vue", options) });
+            },
+            mounted() {
+
+            },
+            methods: {
+                minimizeWin() {
+                    const result = ipcRenderer.invoke('minimizeWin', [])
+                },
+                closeApp() {
+                    const result = ipcRenderer.invoke('closeApp', [])
+                }
+            }
+
+        })
+
+        app.use(Quasar);
+
+        app.use(router);
+
+        let app_root = app.mount('#main-vue');
+
+
+    </script>
+
+
+    <style>
+        .titlebar {
+            -webkit-user-select: none;
+            -webkit-app-region: drag;
+        }
+    </style>
+
+
 </body>
 
 </html>

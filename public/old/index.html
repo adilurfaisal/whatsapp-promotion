@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<!--
+    WARNING! Make sure that you match all Quasar related
+    tags to the same version! (Below it's "@2.11.6")
+  -->
+
+<head>
+    <link href="css/Material-Icons-Outlined.css" rel="stylesheet" type="text/css">
+    <link href="css/quasar.prod.css" rel="stylesheet" type="text/css">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <!-- example of injection point where you write your app template -->
+    <div id="q-app">
+
+        <q-layout view="hhh lpR fff">
+
+            <q-header elevated class="bg-primary text-white">
+                <q-toolbar>
+                    <q-btn dense flat round icon="menu" @click="leftDrawerOpen = !leftDrawerOpen"></q-btn>
+                </q-toolbar>
+            </q-header>
+
+            <q-drawer show-if-above v-model="leftDrawerOpen" side="left" bordered>
+                <q-scroll-area class="fit">
+                    <q-list padding class="menu-list">
+                        <q-item clickable v-ripple>
+                            <q-item-section>
+                                <a href="qr-login.html">QR Login</a>
+                            </q-item-section>
+                        </q-item>
+                        <q-item clickable v-ripple>
+                            <q-item-section>
+                                <a href="index.html">Search</a>
+                            </q-item-section>
+                        </q-item>
+                        <q-item clickable v-ripple>
+                            <q-item-section>
+                                <a href="template.html">Template</a>
+                            </q-item-section>
+                        </q-item>
+                    </q-list>
+                </q-scroll-area>
+            </q-drawer>
+
+            <q-page-container>
+
+                <div class="q-pa-md">
+
+                    <q-form @submit="onSubmit" class="q-gutter-md q-mb-md">
+                        <q-input filled v-model="contactForm.search" label="Search Keyword" lazy-rules
+                            :readonly="contacttblSync"></q-input>
+
+                        <div>
+                            <q-btn name="start" v-if="contacttblSync==false" label="Start" type="submit"
+                                color="primary"></q-btn>
+                            <q-btn name="stop" v-else label="Stop" type="submit" color="red"></q-btn>
+                        </div>
+                    </q-form>
+
+                    <q-table :loading="contacttblSync" style="max-height: 70vh;" class="my-sticky-header-table"
+                        title="Contact List" :rows="contacttblData" :columns="contacttblcolumns" row-key="title"
+                        :rows-per-page-options="[0]">
+                    </q-table>
+
+                </div>
+
+            </q-page-container>
+
+        </q-layout>
+
+    </div>
+
+    <!-- Add the following at the end of your body tag -->
+    <script src="js/vue.global.prod.js"></script>
+    <script src="js/quasar.umd.prod.js"></script>
+    <script src="js/axios.min.js"></script>
+
+    <script>
+        let { ipcRenderer } = require("electron")
+        const app = Vue.createApp({
+            data() {
+                return {
+                    leftDrawerOpen: false,
+                    contactForm: {
+                        search: ""
+                    },
+                    contacttblSync: false,
+                    contacttblData: [],
+                    contacttblcolumns: [
+                        { name: 'title', label: 'Title', field: 'title', align: "left", sortable: true },
+                        { name: 'phone', label: 'Phone', field: 'phone', align: "center", sortable: true },
+                    ]
+                }
+            },
+            mounted() {
+                ipcRenderer.on("ready", async (evt, data) => {
+                    if(data==false){
+                        window.location.href = "qr-login.html";
+                    }
+                });
+                ipcRenderer.on("contact-sync-data-tbl", async (evt, data) => {
+                    this.contacttblData = [...this.contacttblData, ...data];
+                    this.contacttblSync = true;
+                });
+                ipcRenderer.on("contact-sync-done", async (evt, data) => {
+                    this.contacttblSync = false;
+                });
+            },
+            methods: {
+                async onSubmit(evt) {
+                    if (evt.submitter.getAttribute('name') == "start") {
+                        this.contacttblSync = true;
+                        const result = await ipcRenderer.invoke('start-contact-sync', this.contactForm.search)
+                    } else if (evt.submitter.getAttribute('name') == "stop") {
+                        this.contacttblSync = false;
+                        const result = await ipcRenderer.invoke('stop-contact-sync', this.contactForm.search)
+                    }
+                }
+            }
+        })
+
+        app.use(Quasar)
+        app.mount('#q-app')
+    </script>
+</body>
+
+</html>

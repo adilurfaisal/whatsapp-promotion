@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/adilurfaisal/whatsapp-promotion#readme",
   "dependencies": {
+    "qrcode": "^1.5.1",
+    "simpl.db": "^2.12.1",
     "whatsapp-web.js": "^1.19.4"
   },
   "devDependencies": {
