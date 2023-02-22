@@ -35,9 +35,6 @@ function createWindow() {
     win.webContents.on('did-finish-load', () => {
         win.webContents.openDevTools({ mode: 'detach' })
 
-        let contactData = JSON.parse(JSON.stringify(contacts.fetchAll()));
-        win.webContents.send('contact-sync-data-tbl', contactData);
-        win.webContents.send('contact-sync-done', []);
         win.webContents.send('ready', whatsapp.ready);
         whatsapp.start()
 
@@ -108,6 +105,11 @@ let sendMsgSch = async (attachment, list, num, timeOut) => {
     }
 }
 
+ipcMain.handle('get-contact-sync', async (event, ...args) => {
+    let contactData = JSON.parse(JSON.stringify(await contacts.fetchAll()));
+    win.webContents.send('contact-sync-data-tbl', contactData);
+    win.webContents.send('contact-sync-done', []);
+});
 
 ipcMain.handle('send-msg', async (event, ...args) => {
     let type = args[0];

@@ -84,7 +84,8 @@ module.exports = {
       ],
     };
   },
-  mounted() {
+  async mounted() {
+    this.contacttblSync = true;
     ipcRenderer.on("contact-sync-data-tbl", async (evt, data) => {
       this.contacttblData = [...this.contacttblData, ...data];
       this.contacttblSync = true;
@@ -92,6 +93,11 @@ module.exports = {
     ipcRenderer.on("contact-sync-done", async (evt, data) => {
       this.contacttblSync = false;
     });
+    
+    const result = await ipcRenderer.invoke(
+          "get-contact-sync",
+          this.contactForm.search
+    );
   },
   methods: {
     async onSubmit(evt) {

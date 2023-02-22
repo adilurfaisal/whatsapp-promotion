@@ -1,3 +1,4 @@
-2023/02/23-04:07:37.934 3f00 Reusing MANIFEST D:\NodeJS\whatsapp-promotion\.wwebjs_auth\session-undefined\Default\Session Storage/MANIFEST-000001
-2023/02/23-04:07:37.935 3f00 Recovering log #3
-2023/02/23-04:07:37.936 3f00 Reusing old log D:\NodeJS\whatsapp-promotion\.wwebjs_auth\session-undefined\Default\Session Storage/000003.log 
+2023/02/23-04:39:32.281 4f70 Reusing MANIFEST D:\NodeJS\whatsapp-promotion\.wwebjs_auth\session-undefined\Default\Session Storage/MANIFEST-000001
+2023/02/23-04:39:32.282 4f70 Recovering log #4
+2023/02/23-04:39:32.283 4f70 (ignoring error) D:\NodeJS\whatsapp-promotion\.wwebjs_auth\session-undefined\Default\Session Storage/000004.log: dropping 661 bytes; Corruption: checksum mismatch
+2023/02/23-04:39:32.283 4f70 Reusing old log D:\NodeJS\whatsapp-promotion\.wwebjs_auth\session-undefined\Default\Session Storage/000004.log 
